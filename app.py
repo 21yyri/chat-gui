@@ -1,7 +1,6 @@
 import customtkinter as ctk
 from telas.login import Login
 from telas.chat import Chat
-from chat.cliente import Cliente
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -20,6 +19,6 @@ class App:
         self.chat_window = Chat(cliente)
         self.chat_window.mainloop()
 
-
-App()
+if __name__ == '__main__':
+    App()
 

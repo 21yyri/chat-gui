@@ -15,7 +15,7 @@ clientes = []
 lock = Lock()
 
 def broadcast(mensagem: bytearray):
-    print(mensagem)
+    print(mensagem.decode())
     with lock:
         for cliente in clientes:
             try:
