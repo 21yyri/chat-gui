@@ -18,27 +18,27 @@ class Chat(ctk.CTk):
         self.geometry(f"600x400+{x}+{y}")
         self.resizable(False, False)
 
-        self.isRodando: bool = True
+        self.is_rodando: bool = True
 
         self.protocol("WM_DELETE_WINDOW", self.fechar_chat)
 
-        self.chatDisplay = ctk.CTkTextbox(self, state="disabled", wrap="word")
-        self.chatDisplay.pack(fill="both", expand=True, padx=20, pady=10)
+        self.chat_display = ctk.CTkTextbox(self, state="disabled", wrap="word")
+        self.chat_display.pack(fill="both", expand=True, padx=20, pady=10)
 
-        self.msgEntry = ctk.CTkEntry(self, width=580, height=30)
-        self.msgEntry.pack(side="left", fill='x', padx=15, pady=5)
-        self.msgEntry.bind("<Return>", lambda event : self.send_mensagem())
+        self.msg_entry = ctk.CTkEntry(self, width=580, height=30)
+        self.msg_entry.pack(side="left", fill='x', padx=15, pady=5)
+        self.msg_entry.bind("<Return>", lambda event : self.send_mensagem())
 
         self.enviar = ctk.CTkButton(self, text="Enviar", command=self.send_mensagem)
         self.enviar.pack(side="right", padx=0, pady=0)
-        self.receberThread = Thread(target=self.receber_mensagem, daemon=True)
-        self.receberThread.start()
+        self.receber_thread = Thread(target=self.receber_mensagem, daemon=True)
+        self.receber_thread.start()
 
     def send_mensagem(self):
-        mensagem = self.msgEntry.get()
+        mensagem = self.msg_entry.get()
         if mensagem:
             self.cliente.enviar_bytes(mensagem)
-            self.msgEntry.delete(0, 'end')
+            self.msg_entry.delete(0, 'end')
 
     def receber_mensagem(self):
         while True:
@@ -49,13 +49,13 @@ class Chat(ctk.CTk):
                 break
 
     def atualizar_display(self, mensagem):
-        self.chatDisplay.configure(state="normal")
-        self.chatDisplay.insert("end", mensagem)
-        self.chatDisplay.see("end")
-        self.chatDisplay.configure(state="disabled")
+        self.chat_display.configure(state="normal")
+        self.chat_display.insert("end", mensagem)
+        self.chat_display.see("end")
+        self.chat_display.configure(state="disabled")
 
     def fechar_chat(self):
-        self.isRodando = False
+        self.is_rodando = False
         self.destroy()
 
 

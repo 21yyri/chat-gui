@@ -16,22 +16,22 @@ class Login(ctk.CTk):
 
         self.geometry(f"300x120+{x}+{y}")
 
-        self.nomeLabel = ctk.CTkLabel(self, text="Insira o nome a ser usado no chat.")
-        self.nomeLabel.pack(pady=5)
+        self.nome_label = ctk.CTkLabel(self, text="Insira o nome a ser usado no chat.")
+        self.nome_label.pack(pady=5)
 
-        self.entryName = ctk.CTkEntry(self)
-        self.entryName.pack(pady=2)
+        self.entry_name = ctk.CTkEntry(self)
+        self.entry_name.pack(pady=2)
 
-        self.botaoLogin = ctk.CTkButton(self, text="Definir", command=self.get_name)
-        self.botaoLogin.pack(pady=0)
+        self.botao_login = ctk.CTkButton(self, text="Definir", command=self.get_name)
+        self.botao_login.pack(pady=0)
         
-        self.entryName.bind("<Return>", command = lambda e : self.get_name())
+        self.entry_name.bind("<Return>", command = lambda e : self.get_name())
 
-        self.botaoLogin.focus_set()
+        self.botao_login.focus_set()
         
 
     def get_name(self):
-        username = self.entryName.get().strip()
+        username = self.entry_name.get().strip()
         if username:
             cliente = Cliente(username)
             self.appChat.show_chat(cliente)
