@@ -6,7 +6,7 @@ O projeto surgiu para estudo da programação de redes e criação de interface 
 
 # Funcionamento
 O usuário, ao testar a aplicação, precisa rodar o arquivo chat/server.py em um terminal para criar o canal de recebimento e envio de conexões e dados e, posteriormente, rodar o arquivo app.py para cada cliente conectado ao servidor.
-'python3 chat/server.py'
+´python3 chat/server.py´
 
 A aplicação se inicia com uma tela requisitando um nome de usuário, atribuído ao cliente. Ao submeter, a tela do chat aparecerá, permitindo a comunicação entre clientes.
-'python3 app.py'
+´python3 app.py´
