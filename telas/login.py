@@ -1,5 +1,7 @@
 import customtkinter as ctk
+import json
 from chat.cliente import Cliente
+
 
 class Login(ctk.CTk):
     def __init__(self, app):
@@ -14,30 +16,67 @@ class Login(ctk.CTk):
         x = (screen_w - 300) // 2
         y = (screen_h - 400) // 2
 
-        self.geometry(f"300x120+{x}+{y}")
+        self.geometry(f"500x320+{x}+{y}")
 
-        self.nome_label = ctk.CTkLabel(self, text="Insira o nome a ser usado no chat.")
+        self.nome_label = ctk.CTkLabel(
+            self, text="Insira o nome a ser usado no chat.")
         self.nome_label.pack(pady=5)
 
         self.entry_name = ctk.CTkEntry(self)
         self.entry_name.pack(pady=2)
 
-        self.botao_login = ctk.CTkButton(self, text="Definir", command=self.get_name)
+        self.entry_senha = ctk.CTkEntry(self)
+        self.entry_senha.pack(pady=2)
+        self.entry_name.bind("<Return>", command=lambda e: self.get_user())
+
+        self.botao_login = ctk.CTkButton(
+            self, text="Definir", command=self.get_user
+        )
         self.botao_login.pack(pady=0)
-        
-        self.entry_name.bind("<Return>", command = lambda e : self.get_name())
 
         self.botao_login.focus_set()
-        
 
-    def get_name(self):
+    def get_user(self):
         username = self.entry_name.get().strip()
-        if username:
-            cliente = Cliente(username)
-            self.appChat.show_chat(cliente)
+        senha = self.entry_senha.get().strip()
 
+        with open("telas/usuarios.json", "r") as file:
+            usuarios = json.load(file)
+            for user in usuarios:
+                if user["usuario"] == username and user["senha"] == senha:
+                    cliente = Cliente(username)
+                    self.appChat.show_chat(cliente)
+                    break
+
+            self.erro_label = ctk.CTkLabel(
+                self, text="Usuario ou senha incorretos."
+            )
+            self.erro_label.pack(pady=5)
+
+            self.registrar_label = ctk.CTkLabel(
+                self, text="Registrar usuario?")
+            self.registrar_label.pack()
+
+            self.registrar_button = ctk.CTkButton(
+                self, text="Registrar", command=lambda: self.registrar_user(username, senha))
+            self.registrar_button.pack(pady=5)
+
+    def registrar_user(self, username, senha):
+        with open('telas/usuarios.json', 'r') as file:
+            usuarios = json.load(file)
+
+        usuario = {
+            "usuario": username,
+            "senha": senha
+        }
+
+        usuarios.append(usuario)
+
+        with open("telas/usuarios.json", 'w', encoding='utf-8') as file:
+            json.dump(usuarios, file, indent=4)
+
+        cliente = Cliente(username)
+        self.appChat.show_chat(cliente)
 
     def fechar_login(self):
         self.destroy()
-
-
