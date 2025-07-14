@@ -2,6 +2,7 @@ import customtkinter as ctk
 from threading import Thread
 from chatcomponents.cliente import Cliente
 
+
 class Chat(ctk.CTk):
     def __init__(self, cliente: Cliente):
         super().__init__()
@@ -35,11 +36,13 @@ class Chat(ctk.CTk):
         self.receber_thread = Thread(target=self.receber_mensagem, daemon=True)
         self.receber_thread.start()
 
+
     def send_mensagem(self):
         mensagem = self.msg_entry.get()
         if mensagem:
             self.cliente.enviar_bytes(mensagem)
             self.msg_entry.delete(0, 'end')
+
 
     def receber_mensagem(self):
         while True:
@@ -49,11 +52,13 @@ class Chat(ctk.CTk):
             except:
                 break
 
+
     def atualizar_display(self, mensagem):
         self.chat_display.configure(state="normal")
         self.chat_display.insert("end", mensagem)
         self.chat_display.see("end")
         self.chat_display.configure(state="disabled")
+
 
     def fechar_chat(self):
         self.is_rodando = False
@@ -61,8 +66,5 @@ class Chat(ctk.CTk):
 
 
 if __name__ == "__main__":
-    cliente = Cliente(
-        username="Yurii",
-        porta=9999
-    )
+    cliente = Cliente(username="Yurii", porta=9999)
     Chat(cliente)

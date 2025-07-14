@@ -1,6 +1,7 @@
 import socket
 from threading import Thread, Lock
 
+
 class Grupo:
     def __init__(self, porta: int) -> None:
         self.porta = porta
@@ -52,9 +53,11 @@ class GrupoUm(Grupo):
     def __init__(self, porta: int = 9999) -> None:
         super().__init__(porta)
 
+
 class GrupoDois(Grupo):
     def __init__(self, porta: int = 9998) -> None:
         super().__init__(porta)
+
 
 class GrupoTres(Grupo):
     def __init__(self, porta: int = 9997) -> None:
