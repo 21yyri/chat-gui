@@ -19,7 +19,6 @@ class Menu(ctk.CTk):
 
         self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
 
-
         self.escolha_label = ctk.CTkLabel(self, text="Escolha o servidor a logar.", font=self.big_font)
         self.escolha_label.pack(pady=10)
 

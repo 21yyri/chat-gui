@@ -1,8 +1,9 @@
 import customtkinter as ctk
 from threading import Thread
+from chatcomponents.cliente import Cliente
 
 class Chat(ctk.CTk):
-    def __init__(self, cliente):
+    def __init__(self, cliente: Cliente):
         super().__init__()
         self.cliente = cliente
 
@@ -59,3 +60,9 @@ class Chat(ctk.CTk):
         self.destroy()
 
 
+if __name__ == "__main__":
+    cliente = Cliente(
+        username="Yurii",
+        porta=9999
+    )
+    Chat(cliente)
