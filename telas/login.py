@@ -1,7 +1,6 @@
 import customtkinter as ctk
+from chatcomponents.cliente import Cliente
 import json
-from chat.cliente import Cliente
-
 
 class Login(ctk.CTk):
     def __init__(self, app):
@@ -18,8 +17,9 @@ class Login(ctk.CTk):
 
         self.geometry(f"500x320+{x}+{y}")
 
-        self.nome_label = ctk.CTkLabel(
-            self, text="Insira o nome a ser usado no chat.")
+        self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
+
+        self.nome_label = ctk.CTkLabel(self, text="Insira o nome a ser usado no chat.", font=self.big_font)
         self.nome_label.pack(pady=5)
 
         self.entry_name = ctk.CTkEntry(self)
@@ -27,7 +27,7 @@ class Login(ctk.CTk):
 
         self.entry_senha = ctk.CTkEntry(self)
         self.entry_senha.pack(pady=2)
-        self.entry_name.bind("<Return>", command=lambda e: self.get_user())
+        self.entry_name.bind("<Return>", command = lambda e: self.get_user())
 
         self.botao_login = ctk.CTkButton(
             self, text="Definir", command=self.get_user
@@ -44,7 +44,7 @@ class Login(ctk.CTk):
             usuarios = json.load(file)
             for user in usuarios:
                 if user["usuario"] == username and user["senha"] == senha:
-                    cliente = Cliente(username)
+                    cliente = cliente.Cliente(username)
                     self.appChat.show_chat(cliente)
                     break
 

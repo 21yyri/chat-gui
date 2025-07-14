@@ -1,5 +1,8 @@
 import customtkinter as ctk
 
+ctk.set_appearance_mode("Dark")
+ctk.set_default_color_theme("blue")
+
 class Menu(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -12,17 +15,21 @@ class Menu(ctk.CTk):
         x = (screen_w - 300) // 2
         y = (screen_h - 400) // 2
 
-        self.geometry(f"500x500+{x}+{y}")
+        self.geometry(f"500x300+{x}+{y}")
+
+        self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
 
 
-        self.escolha_label = ctk.CTkLabel(self, text="Escolha o servidor a logar.").grid(row=0, column=0)
+        self.escolha_label = ctk.CTkLabel(self, text="Escolha o servidor a logar.", font=self.big_font)
+        self.escolha_label.pack(pady=10)
 
-        self.grupo_um = ctk.CTkButton(self, text="Sala Um").grid(row=1, column=0)
+        self.grupo_um = ctk.CTkButton(self, text="Sala Um", height=50)
+        self.grupo_dois = ctk.CTkButton(self, text="Sala Dois", height=50)
+        self.grupo_tres = ctk.CTkButton(self, text="Sala Tres", height=50)
 
-        self.grupo_dois = ctk.CTkButton(self, text="Sala Dois").grid(row=1, column=1)
-
-        self.grupo_tres = ctk.CTkButton(self, text="Sala Tres").grid(row=1, column=2)
-
+        self.grupo_um.pack(pady=5)
+        self.grupo_dois.pack(pady=5)
+        self.grupo_tres.pack(pady=5)
         self.mainloop()
 
 

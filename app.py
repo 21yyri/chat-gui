@@ -9,7 +9,7 @@ class App:
     def __init__(self):
         self.show_login()
     
-    def show_login(self):
+    def show_login(self, porta):
         self.login_window = Login(self)
         self.login_window.mainloop()
 
