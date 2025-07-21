@@ -1,6 +1,5 @@
 import customtkinter as ctk
 from chatcomponents.cliente import Cliente
-from app import App
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -32,9 +31,12 @@ class Menu(ctk.CTk):
         # self.grupo_dois = ctk.CTkButton(self, text="Sala Dois", height=50)
         # self.grupo_tres = ctk.CTkButton(self, text="Sala Tres", height=50)
         
-        self.menu = ctk.CTkOptionMenu(self, values=["Sala Um", "Sala Dois", "Sala Três"], command=self.teste)
+        self.menu = ctk.CTkOptionMenu(self, values=["Sala Um", "Sala Dois", "Sala Três"], command=self.select_port)
         self.menu.pack()
 
+        self.botao_start = ctk.CTkButton(self, text="Entrar", command=self.join_server)
+        self.botao_start.pack(pady=10)
+        
         # self.grupo_um.pack(pady=5)
         # self.grupo_dois.pack(pady=5)
         # self.grupo_tres.pack(pady=5)

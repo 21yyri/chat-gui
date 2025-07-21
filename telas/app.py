@@ -8,22 +8,25 @@ ctk.set_default_color_theme("blue")
 
 class App:
     def __init__(self):
-        self.show_login()
+        self.show_menu()
     
     
     def show_menu(self):
         self.menu = Menu(self)
+        self.menu.mainloop()
     
     
     def show_login(self, cliente):
-        self.login_window = Login(self)
+        self.login_window = Login(self, cliente)
         self.login_window.mainloop()
+
 
     def show_chat(self, cliente):
         self.login_window.destroy()
                 
         self.chat_window = Chat(cliente)
         self.chat_window.mainloop()
+
 
 if __name__ == '__main__':
     App()

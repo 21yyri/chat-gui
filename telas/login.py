@@ -38,6 +38,7 @@ class Login(ctk.CTk):
 
         self.botao_login.focus_set()
 
+
     def get_user(self):
         username = self.entry_name.get().strip()
         senha = self.entry_senha.get().strip()
@@ -46,8 +47,8 @@ class Login(ctk.CTk):
             usuarios = json.load(file)
             for user in usuarios:
                 if user["usuario"] == username and user["senha"] == senha:
-                    cliente = cliente.Cliente(username)
-                    self.appChat.show_chat(cliente)
+                    self.cliente.username = username
+                    self.appChat.show_chat(self.cliente)
                     break
 
             self.erro_label = ctk.CTkLabel(
@@ -64,6 +65,7 @@ class Login(ctk.CTk):
                 self, text="Registrar", command=lambda: self.registrar_user(username, senha)
             )
             self.registrar_button.pack(pady=5)
+
 
     def registrar_user(self, username, senha):
         with open('telas/usuarios.json', 'r') as file:
@@ -83,6 +85,6 @@ class Login(ctk.CTk):
 
         self.appChat.show_chat(self.cliente)
 
+
     def fechar_login(self):
         self.destroy()
-

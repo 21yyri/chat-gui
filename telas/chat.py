@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from threading import Thread
+from chatcomponents.mensagem import Mensagem
 
 class Chat(ctk.CTk):
     def __init__(self, cliente):
@@ -35,7 +36,7 @@ class Chat(ctk.CTk):
         self.receber_thread.start()
 
     def send_mensagem(self):
-        mensagem = self.msg_entry.get()
+        mensagem = f"{self.cliente.username};{self.msg_entry.get()}"
         if mensagem:
             self.cliente.enviar_bytes(mensagem)
             self.msg_entry.delete(0, 'end')
