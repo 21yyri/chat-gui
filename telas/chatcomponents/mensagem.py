@@ -7,5 +7,6 @@ class Mensagem:
         self.conteudo = conteudo
         self.data = datetime.now()
 
+
     def __repr__(self) -> str:
         return f"{self.data} {self.cliente.username}: {self.conteudo}"

@@ -1,7 +1,7 @@
 import socket
 
 class Cliente:
-    def __init__(self, username: str, porta: int = None) -> None:
+    def __init__(self, username: str = None, porta: int = None) -> None:
         self.porta = porta
 
         self.cliente = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

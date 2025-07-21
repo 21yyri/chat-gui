@@ -3,11 +3,13 @@ from chatcomponents.cliente import Cliente
 import json
 
 class Login(ctk.CTk):
-    def __init__(self, app):
+    def __init__(self, app, cliente: Cliente):
         super().__init__()
         self.appChat = app
         self.title("Login")
         self.update_idletasks()
+        
+        self.cliente = cliente
 
         screen_w = self.winfo_screenwidth()
         screen_h = self.winfo_screenheight()
@@ -54,11 +56,13 @@ class Login(ctk.CTk):
             self.erro_label.pack(pady=5)
 
             self.registrar_label = ctk.CTkLabel(
-                self, text="Registrar usuario?")
+                self, text="Registrar usuario?"
+            )
             self.registrar_label.pack()
 
             self.registrar_button = ctk.CTkButton(
-                self, text="Registrar", command=lambda: self.registrar_user(username, senha))
+                self, text="Registrar", command=lambda: self.registrar_user(username, senha)
+            )
             self.registrar_button.pack(pady=5)
 
     def registrar_user(self, username, senha):
@@ -69,14 +73,16 @@ class Login(ctk.CTk):
             "usuario": username,
             "senha": senha
         }
+        
+        self.cliente.username = usuario["usuario"]
 
         usuarios.append(usuario)
 
         with open("telas/usuarios.json", 'w', encoding='utf-8') as file:
             json.dump(usuarios, file, indent=4)
 
-        cliente = Cliente(username)
-        self.appChat.show_chat(cliente)
+        self.appChat.show_chat(self.cliente)
 
     def fechar_login(self):
         self.destroy()
+
