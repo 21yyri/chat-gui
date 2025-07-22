@@ -1,9 +1,15 @@
 import customtkinter as ctk
 from threading import Thread
 from chatcomponents.mensagem import Mensagem
+from chatcomponents.cliente import Cliente
+from datetime import datetime
+import sqlite3
+
+conn = sqlite3.connect("chat.db", check_same_thread=False)
+cursor = conn.cursor()
 
 class Chat(ctk.CTk):
-    def __init__(self, cliente):
+    def __init__(self, cliente: Cliente):
         super().__init__()
         self.cliente = cliente
 
@@ -19,9 +25,15 @@ class Chat(ctk.CTk):
         self.geometry(f"600x400+{x}+{y}")
         self.resizable(False, False)
 
-        self.is_rodando: bool = True
-
         self.protocol("WM_DELETE_WINDOW", self.fechar_chat)
+
+        match self.cliente.porta:
+            case 9998:
+                self.grupo = 1
+            case 9999:
+                self.grupo = 2
+            case 10000:
+                self.grupo = 3
 
         self.chat_display = ctk.CTkTextbox(self, state="disabled", wrap="word")
         self.chat_display.pack(fill="both", expand=True, padx=20, pady=10)
@@ -32,22 +44,38 @@ class Chat(ctk.CTk):
 
         self.enviar = ctk.CTkButton(self, text="Enviar", command=self.send_mensagem)
         self.enviar.pack(side="right", padx=0, pady=0)
+
+        mensagens = cursor.execute(f"SELECT * FROM mensagens WHERE grupo = {self.grupo}").fetchall()
+        if mensagens != []:
+            for mensagem in mensagens:
+                self.atualizar_display(f"[{mensagem[2]}] {mensagem[0]}: {mensagem[1]}\n")
+
         self.receber_thread = Thread(target=self.receber_mensagem, daemon=True)
         self.receber_thread.start()
 
+
     def send_mensagem(self):
-        mensagem = f"{self.cliente.username};{self.msg_entry.get()}"
+        mensagem: str = f"{self.cliente.username};{self.msg_entry.get()}"
         if mensagem:
             self.cliente.enviar_bytes(mensagem)
             self.msg_entry.delete(0, 'end')
 
+
     def receber_mensagem(self):
         while True:
             try:
-                mensagem: str = self.cliente.receber_bytes()
-                self.atualizar_display(mensagem)
-            except:
-                break
+                mensagem: str = self.cliente.receber_bytes().split(";")
+                print(mensagem)
+                mensagem: Mensagem = Mensagem(mensagem[0], mensagem[1])
+                print(mensagem)
+                cursor.execute("INSERT INTO mensagens (username, conteudo, data, grupo) VALUES (?, ?, ?, ?)", (mensagem.cliente, mensagem.conteudo, mensagem.data, self.grupo))
+                conn.commit()
+
+                self.atualizar_display(mensagem.__str__())
+            except Exception as e:
+                print(e)
+                print(__name__)
+
 
     def atualizar_display(self, mensagem):
         self.chat_display.configure(state="normal")
@@ -55,8 +83,6 @@ class Chat(ctk.CTk):
         self.chat_display.see("end")
         self.chat_display.configure(state="disabled")
 
+
     def fechar_chat(self):
-        self.is_rodando = False
         self.destroy()
-
-

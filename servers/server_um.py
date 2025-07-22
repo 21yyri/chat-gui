@@ -1,6 +1,5 @@
 import socket
 from threading import Thread, Lock
-import pickle
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -16,7 +15,6 @@ clientes = []
 lock = Lock()
 
 def broadcast(mensagem: bytearray):
-    """TRATAR STRING E REGISTRAR`COMO OBJETO"""
     print(mensagem.decode())
     with lock:
         for cliente in clientes:

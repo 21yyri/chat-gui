@@ -11,10 +11,9 @@ class Cliente:
 
    
     def enviar_bytes(self, msg):
-        msg = f'{self.username}: {msg}'
         self.cliente.send(msg.encode())
 
 
     def receber_bytes(self):
-        return f"{self.cliente.recv(1024).decode()}\n"
+        return self.cliente.recv(1024).decode()
         

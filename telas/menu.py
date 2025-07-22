@@ -54,6 +54,7 @@ class Menu(ctk.CTk):
 
     def join_server(self):
         cliente = Cliente(porta=self.porta)
+        self.fechar_menu()
         self.appChat.show_login(cliente)
     
     

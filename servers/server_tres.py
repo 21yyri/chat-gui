@@ -15,7 +15,6 @@ clientes = []
 lock = Lock()
 
 def broadcast(mensagem: bytearray):
-    print(type(mensagem))
     print(mensagem.decode())
     with lock:
         for cliente in clientes:
@@ -23,6 +22,7 @@ def broadcast(mensagem: bytearray):
                 cliente.send(mensagem)
             except:
                 clientes.remove(cliente)
+
 
 def handle_clients(cliente: socket.socket):
     while True:

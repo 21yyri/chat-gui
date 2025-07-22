@@ -2,6 +2,14 @@ import customtkinter as ctk
 from login import Login
 from chat import Chat
 from menu import Menu
+import sqlite3
+
+conn = sqlite3.connect("chat.db", check_same_thread=False)
+cursor = conn.cursor()
+
+cursor.execute("CREATE TABLE IF NOT EXISTS usuarios (username, senha)")
+cursor.execute("CREATE TABLE IF NOT EXISTS mensagens (username, conteudo, data, grupo)")
+conn.commit()
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
@@ -30,4 +38,3 @@ class App:
 
 if __name__ == '__main__':
     App()
-
