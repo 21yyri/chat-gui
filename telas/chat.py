@@ -38,12 +38,12 @@ class Chat(ctk.CTk):
         self.chat_display = ctk.CTkTextbox(self, state="disabled", wrap="word")
         self.chat_display.pack(fill="both", expand=True, padx=20, pady=10)
 
-        self.msg_entry = ctk.CTkEntry(self, width=580, height=30)
-        self.msg_entry.pack(side="left", fill='x', padx=15, pady=5)
+        self.msg_entry = ctk.CTkEntry(self, width=500, height=30)
+        self.msg_entry.pack(side="left", fill='x', padx=10, pady=5)
         self.msg_entry.bind("<Return>", lambda event : self.send_mensagem())
 
         self.enviar = ctk.CTkButton(self, text="Enviar", command=self.send_mensagem)
-        self.enviar.pack(side="right", padx=0, pady=0)
+        self.enviar.pack(side="right", padx=5, pady=0)
 
         mensagens = cursor.execute(f"SELECT * FROM mensagens WHERE grupo = {self.grupo}").fetchall()
         if mensagens != []:
@@ -65,16 +65,15 @@ class Chat(ctk.CTk):
         while True:
             try:
                 mensagem: str = self.cliente.receber_bytes().split(";")
-                print(mensagem)
                 mensagem: Mensagem = Mensagem(mensagem[0], mensagem[1])
-                print(mensagem)
-                cursor.execute("INSERT INTO mensagens (username, conteudo, data, grupo) VALUES (?, ?, ?, ?)", (mensagem.cliente, mensagem.conteudo, mensagem.data, self.grupo))
+
+                cursor.execute("INSERT INTO mensagens (username, conteudo, data, grupo) VALUES (?, ?, ?, ?)", 
+                               (mensagem.cliente, mensagem.conteudo, mensagem.data, self.grupo))
                 conn.commit()
 
                 self.atualizar_display(mensagem.__str__())
             except Exception as e:
                 print(e)
-                print(__name__)
 
 
     def atualizar_display(self, mensagem):
