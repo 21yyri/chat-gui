@@ -17,20 +17,20 @@ class Login(ctk.CTk):
         screen_w = self.winfo_screenwidth()
         screen_h = self.winfo_screenheight()
 
-        x = (screen_w - 300) // 2
-        y = (screen_h - 400) // 2
+        self.x = (screen_w - 300) // 2
+        self.y = (screen_h - 400) // 2
 
-        self.geometry(f"500x320+{x}+{y}")
+        self.geometry(f"300x150+{self.x}+{self.y}")
 
         self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
 
-        self.nome_label = ctk.CTkLabel(self, text="Insira o nome a ser usado no chat.", font=self.big_font)
+        self.nome_label = ctk.CTkLabel(self, text="Login.", font=self.big_font)
         self.nome_label.pack(pady=5)
 
-        self.entry_name = ctk.CTkEntry(self)
+        self.entry_name = ctk.CTkEntry(self, placeholder_text="Username")
         self.entry_name.pack(pady=2)
 
-        self.entry_senha = ctk.CTkEntry(self)
+        self.entry_senha = ctk.CTkEntry(self, placeholder_text="Senha", show="*")
         self.entry_senha.pack(pady=2)
         self.entry_name.bind("<Return>", command = lambda e: self.get_user())
 
@@ -52,7 +52,8 @@ class Login(ctk.CTk):
                 self.cliente.username = username
                 self.appChat.show_chat(self.cliente)
                 break
-
+        
+        self.geometry(f"300x250+{self.x}+{self.y}")
         self.erro_label = ctk.CTkLabel(self, text="Usuario ou senha incorretos.")
         self.erro_label.pack(pady=5)
 

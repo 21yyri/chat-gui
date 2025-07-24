@@ -7,7 +7,7 @@ ctk.set_default_color_theme("blue")
 class Menu(ctk.CTk):
     def __init__(self, app):
         super().__init__()
-        self.title("Chatroom menu")
+        self.title("Menu")
         self.update_idletasks()
 
         self.appChat = app
@@ -18,28 +18,21 @@ class Menu(ctk.CTk):
         x = (screen_w - 300) // 2
         y = (screen_h - 400) // 2
 
-        self.geometry(f"340x200+{x}+{y}")
+        self.geometry(f"340x140+{x}+{y}")
 
         self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
         
         self.porta = 9998
         
-        self.escolha_label = ctk.CTkLabel(self, text="Escolha o servidor a logar.", font=self.big_font)
+        self.escolha_label = ctk.CTkLabel(self, text="Grupos disponíveis.", font=self.big_font)
         self.escolha_label.pack(pady=10)
-
-        # self.grupo_um = ctk.CTkButton(self, text="Sala Um", height=50)
-        # self.grupo_dois = ctk.CTkButton(self, text="Sala Dois", height=50)
-        # self.grupo_tres = ctk.CTkButton(self, text="Sala Tres", height=50)
         
         self.menu = ctk.CTkOptionMenu(self, values=["Sala Um", "Sala Dois", "Sala Três"], command=self.select_port)
         self.menu.pack()
 
         self.botao_start = ctk.CTkButton(self, text="Entrar", command=self.join_server)
         self.botao_start.pack(pady=10)
-        
-        # self.grupo_um.pack(pady=5)
-        # self.grupo_dois.pack(pady=5)
-        # self.grupo_tres.pack(pady=5)
+
         self.mainloop()
 
     def select_port(self, escolha):
