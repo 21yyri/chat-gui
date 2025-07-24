@@ -24,7 +24,7 @@ class Login(ctk.CTk):
 
         self.big_font = ctk.CTkFont(family="Arial", size=24, weight="bold")
 
-        self.nome_label = ctk.CTkLabel(self, text="Login.", font=self.big_font)
+        self.nome_label = ctk.CTkLabel(self, text="Login", font=self.big_font)
         self.nome_label.pack(pady=5)
 
         self.entry_name = ctk.CTkEntry(self, placeholder_text="Username")

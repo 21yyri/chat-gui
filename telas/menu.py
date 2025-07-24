@@ -24,7 +24,7 @@ class Menu(ctk.CTk):
         
         self.porta = 9998
         
-        self.escolha_label = ctk.CTkLabel(self, text="Grupos disponíveis.", font=self.big_font)
+        self.escolha_label = ctk.CTkLabel(self, text="Grupos disponíveis", font=self.big_font)
         self.escolha_label.pack(pady=10)
         
         self.menu = ctk.CTkOptionMenu(self, values=["Sala Um", "Sala Dois", "Sala Três"], command=self.select_port)
