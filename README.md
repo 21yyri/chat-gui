@@ -8,7 +8,16 @@ Projeto entregue na matéria de Programação Orientada a Objetos e desenvolvido
 
 A aplicação depende do customtkinter para sua interface. Todas as outras bibliotecas utilizadas são nativas ao Python moderno.
 
+## Configuração
+
+Antes de iniciar, para liberar todas as salas de conversa, o usuário deve rodar, uma vez por terminal para cada uma das três portas, o comando:
+
+``py server/grupo.py {num}``
+
+Sendo `num`, os números 9998, 9999 e 10000, referentes a porta da conexão.
+
 ## Passo a passo
+
 Na tela inicial, a aplicação pedirá um usuário e uma senha. Caso ainda não tenha logado, pode criar a partir dessa tela. Os dados vão ser salvos num banco SQLite.
 
 Em uma tela posterior, o usuário deve decidir a que sala quer se conectar, tendo três opções que vão definir a que porta do localhost será feita a conexão.
